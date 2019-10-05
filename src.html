@@ -113,6 +113,7 @@ function loop() {
     for (var i = index + 1; i < snake.cells.length; i++) {
       
       // snake occupies same space as a body part. reset game
+
       if (cell.x === snake.cells[i].x && cell.y === snake.cells[i].y && score!=0) {
         //end the game here
         alert("High Score is "+ score);
@@ -120,14 +121,17 @@ function loop() {
         
        // console.log(score);
         
+
         snake.x = 160;
         snake.y = 160;
         snake.cells = [];
         snake.maxCells = 4;
+
         snake.dx = 0;
         snake.dy = 0;
         //apple.x = getRandomInt(0, 25) * grid;
         //apple.y = getRandomInt(0, 25) * grid;
+
       }
     }
   });
