@@ -1,7 +1,4 @@
 
-// import celerx from "./celerx";
-// import seed from "seed-random";
-
 var canvas = document.getElementById('game');
 var context = canvas.getContext('2d');
 var grid = 16;
@@ -18,12 +15,12 @@ var snake = {
   // keep track of all grids the snake body occupies
   cells: [],
   
-  // length of the snake. grows when eating an apple
+  // length of the snake. grows when eating an applewwww
   maxCells: 4
 };
 var apple = {
   x: 320,
-  y: 320
+  y: 320,
 };
 // get random whole numbers in a specific range
 // @see https://stackoverflow.com/a/1527820/2124254
@@ -31,10 +28,34 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 // game loop
+var score;
+
+function changePosBtn(dir){
+    
+    if(dir=="0" && snake.dx == 0){
+        snake.dx = -grid;
+        snake.dy = 0;
+    }
+    else if(dir=="1" && snake.dy == 0){
+        snake.dy = -grid;
+        snake.dx = 0;
+    }
+    else if(dir=="2" && snake.dx == 0){
+        snake.dx = grid;
+        snake.dy = 0;
+    }
+    else if(dir=="3" && snake.dy == 0){
+        snake.dy = grid;
+        snake.dx = 0;
+    }
+}
+
 function loop() {
   requestAnimationFrame(loop);
+  score=snake.maxCells -4;
+  let a =document.getElementById("score");
+  a.textContent = score;  
   // slow game loop to 15 fps instead of 60 (60/15 = 4)
-
   if (++count < 4) {
     return;
   }
@@ -85,6 +106,10 @@ function loop() {
       
       // snake occupies same space as a body part. reset game
       if (cell.x === snake.cells[i].x && cell.y === snake.cells[i].y) {
+        //end the game here
+       // score=snake.cells.length-snake.maxCells;
+        
+       // console.log(score);
         snake.x = 160;
         snake.y = 160;
         snake.cells = [];
@@ -96,32 +121,8 @@ function loop() {
       }
     }
   });
-
-  
 }
-
-function changePosBtn(dir){
-    
-    if(dir=="0" && snake.dx == 0){
-        snake.dx = -grid;
-        snake.dy = 0;
-    }
-    else if(dir=="1" && snake.dy == 0){
-        snake.dy = -grid;
-        snake.dx = 0;
-    }
-    else if(dir=="2" && snake.dx == 0){
-        snake.dx = grid;
-        snake.dy = 0;
-    }
-    else if(dir=="3" && snake.dy == 0){
-        snake.dy = grid;
-        snake.dx = 0;
-    }
-}
-
 // listen to keyboard events to move the snake
-
 document.addEventListener('keydown', function(e) {
   // prevent snake from backtracking on itself by checking that it's 
   // not already moving on the same axis (pressing left while moving
@@ -149,7 +150,7 @@ document.addEventListener('keydown', function(e) {
     snake.dx = 0;
   }
 });
-
-
 // start the game
 requestAnimationFrame(loop);
+
+
