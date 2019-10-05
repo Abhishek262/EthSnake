@@ -1,6 +1,6 @@
 
-import celerx from "./celerx";
-import seed from "seed-random";
+// import celerx from "./celerx";
+// import seed from "seed-random";
 
 var canvas = document.getElementById('game');
 var context = canvas.getContext('2d');
@@ -34,6 +34,7 @@ function getRandomInt(min, max) {
 function loop() {
   requestAnimationFrame(loop);
   // slow game loop to 15 fps instead of 60 (60/15 = 4)
+
   if (++count < 4) {
     return;
   }
@@ -95,8 +96,32 @@ function loop() {
       }
     }
   });
+
+  
 }
+
+function changePosBtn(dir){
+    
+    if(dir=="0" && snake.dx == 0){
+        snake.dx = -grid;
+        snake.dy = 0;
+    }
+    else if(dir=="1" && snake.dy == 0){
+        snake.dy = -grid;
+        snake.dx = 0;
+    }
+    else if(dir=="2" && snake.dx == 0){
+        snake.dx = grid;
+        snake.dy = 0;
+    }
+    else if(dir=="3" && snake.dy == 0){
+        snake.dy = grid;
+        snake.dx = 0;
+    }
+}
+
 // listen to keyboard events to move the snake
+
 document.addEventListener('keydown', function(e) {
   // prevent snake from backtracking on itself by checking that it's 
   // not already moving on the same axis (pressing left while moving
@@ -124,5 +149,7 @@ document.addEventListener('keydown', function(e) {
     snake.dx = 0;
   }
 });
+
+
 // start the game
 requestAnimationFrame(loop);
